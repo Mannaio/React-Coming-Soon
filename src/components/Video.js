@@ -1,7 +1,26 @@
 import React, { Component } from 'react';
 import {render} from 'react-dom';
+import { compose, withState, withHandlers } from 'recompose';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import clip from '../clip.mp4';
+import clip from '../paulanovotna.mp4';
+
+const withToggle = compose(
+  withState('muted', 'toggle', true),
+  withHandlers({
+    toggle: ({ toggle }) => (e) => toggle((current) => !current)
+  })
+)
+
+const Status = withToggle(({ status, muted, toggle }) =>
+  <div>
+    <video  onClick={ toggle } style={VideoStyle} muted={muted} autoPlay loop>
+      { status }
+      { muted  }
+      <source src={clip} type="video/mp4"></source>
+    </video>
+  </div>
+);
+
 
 const VideoStyle = {
   position: 'fixed',
@@ -16,11 +35,7 @@ const VideoStyle = {
 };
 
 const Video = () => (
-  <div>
-    <video style={VideoStyle} autoPlay loop>
-      <source src={clip} type="video/mp4"></source>
-    </video>
-  </div>
+  <Status status={ status } />
 );
 
 export default Video;
