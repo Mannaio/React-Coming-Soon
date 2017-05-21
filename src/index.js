@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Video from './Video';
-import Title from './Title';
-import './index.css';
+import Video from './components/Video';
+import Title from './components/Title';
 
 
 ReactDOM.render(
