@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {render} from 'react-dom';
+import styled from 'styled-components';
 // import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 const neverRender = (BaseComponent) =>
