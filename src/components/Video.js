@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { compose, withState, withHandlers, withProps } from 'recompose';
-import clip from '../images/paulanovotna.mp4';
+import clip from '../images/paulanovotna-coming-soon.mp4';
 import styled from 'styled-components';
 import icon from '../css/icon.css';
+import style from '../css/style.css';
 
 const VideoClip = styled.video`
   position: fixed;
@@ -14,17 +15,23 @@ const VideoClip = styled.video`
   height: auto;
   zIndex: -100;
   transform: translateX(-50%) translateY(-50%);
+  opacity: 0.4;
 `
 
 const Button = styled.button`
   background: transparent;
   outline: 0;
-  border: 2px solid #5f5f5f;
+  border: 2px solid #fff;
   border-radius: 50%;
   padding: 10px;
-  cursor: pointer;
+  cursor: pointer
+  right: 30px;
+  top: 25px;
+  position: fixed;
 `
+const VideoWrapper = styled.div`
 
+`
 
 const withToggle = compose(
   withState('muted', 'toggle', 'selector', true),
@@ -38,17 +45,15 @@ const withToggle = compose(
   })
 )
 
-
-
 const Status = withToggle(({ status, muted, toggle, selector }) =>
-  <div>
+  <VideoWrapper>
     <Button onClick={ toggle }>
       <i className={ selector }></i>
     </Button>
     <VideoClip muted={muted} autoPlay loop>
       <source src={clip} type="video/mp4"></source>
     </VideoClip>
-  </div>
+  </VideoWrapper>
 );
 
 const Video = () => (

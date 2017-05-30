@@ -2,6 +2,7 @@
   "name": "ReactAnimations",
   "version": "0.0.1",
   "private": true,
+  "homepage": "https://github.com/Mannaio/React-Coming-Soon",
   "devDependencies": {
     "react-scripts": "0.9.5"
   },
