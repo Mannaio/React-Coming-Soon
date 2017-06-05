@@ -11,6 +11,7 @@ const Wrapper = styled.div`
   max-width: 600px;
 `
 const IconInLeft = styled.a`
+  animation-name: ${props => props.name};
   animation-delay: ${props => props.delay};
   animation-duration: ${props => props.duration};
   animation-timing-function: ${props => props.timingFunction};
@@ -25,21 +26,21 @@ const IconInLeft = styled.a`
   margin-top: ${props => props.marginTop};
   font-family: 'Cabin', sans-serif;
 `
-const IconInLeftEmail = styled.a`
-  animation-delay: ${props => props.delay};
-  animation-duration: ${props => props.duration};
-  animation-timing-function: ${props => props.timingFunction};
-  animation-iteration-count: ${props => props.iterationCount};
-  animation-direction: ${props => props.direction};
-  animation-fill-mode: ${props => props.fillMode};
-  animation-play-state:  ${props => props.playState};
-  display: ${props => props.display};
-  text-decoration: ${props => props.textDecoration};
-  font-size: ${props => props.fontSize};
-  color: ${props => props.color};
-  margin-left: ${props => props.marginLeft};
-  font-family: 'Cabin', sans-serif;
-`
+// const IconInLeftEmail = styled.a`
+//   animation-delay: ${props => props.delay};
+//   animation-duration: ${props => props.duration};
+//   animation-timing-function: ${props => props.timingFunction};
+//   animation-iteration-count: ${props => props.iterationCount};
+//   animation-direction: ${props => props.direction};
+//   animation-fill-mode: ${props => props.fillMode};
+//   animation-play-state:  ${props => props.playState};
+//   display: ${props => props.display};
+//   text-decoration: ${props => props.textDecoration};
+//   font-size: ${props => props.fontSize};
+//   color: ${props => props.color};
+//   margin-left: ${props => props.marginLeft};
+//   font-family: 'Cabin', sans-serif;
+// `
 const MainTitle = styled.div`
   animation-duration: ${props => props.duration};
   animation-timing-function: ${props => props.timingFunction};
@@ -63,34 +64,32 @@ IconInLeft.defaultProps = {
   fillMode: 'both',
   playState: 'running',
   display: 'inline-block',
-  className: 'icon-instagram',
-  href: 'https://www.instagram.com/paulanovotna/',
   target: '_blank',
   cursor: 'pointer',
   fontSize: '32px',
   color: 'white',
   marginTop: '20px',
-  textDecoration: 'none'
+  textDecoration: 'none',
 }
 
-IconInLeftEmail.defaultProps = {
-  delay: '3s',
-  duration: '1s',
-  timingFunction: 'ease',
-  iterationCount: '1',
-  direction: 'normal',
-  fillMode: 'both',
-  playState: 'running',
-  display: 'inline-block',
-  className: 'icon-mail2',
-  href: 'mailto:paula.novotna@gmail.com?Subject=Hello%20again',
-  target: '_blank',
-  cursor: 'pointer',
-  fontSize: '32px',
-  color: 'white',
-  marginLeft: '10px',
-  textDecoration: 'none'
-}
+// IconInLeftEmail.defaultProps = {
+//   delay: '3s',
+//   duration: '1s',
+//   timingFunction: 'ease',
+//   iterationCount: '1',
+//   direction: 'normal',
+//   fillMode: 'both',
+//   playState: 'running',
+//   display: 'inline-block',
+//   className: 'icon-mail2',
+//   href: 'mailto:paula.novotna@gmail.com?Subject=Hello%20again',
+//   target: '_blank',
+//   cursor: 'pointer',
+//   fontSize: '32px',
+//   color: 'white',
+//   marginLeft: '10px',
+//   textDecoration: 'none'
+// }
 
 MainTitle.defaultProps = {
   duration: '1s',
@@ -190,8 +189,9 @@ const ContentBounceIn = styled(MainTitle)`
 const InstagramInLeft = styled(IconInLeft)`
   animation-name: ${bounceInLeftAnimation};
 `
-const EmailInLeftEmail = styled(IconInLeftEmail)`
-  animation-name: ${bounceInLeftAnimation};
+const EmailInLeftEmail = styled(IconInLeft)`
+  animation-name: ${bounceInUpAnimation};
+  margin-left: 10px;
 `
 
 const Heading = ({ text }) =>
@@ -203,19 +203,19 @@ const SubHeading = ({ text }) =>
 const Content = ({ text }) =>
   <ContentBounceIn>{ text }</ContentBounceIn>;
 
-const Instagram = ({ text }) =>
-  <InstagramInLeft>{ text }</InstagramInLeft>;
+const Instagram = ({ text, className, href }) =>
+  <InstagramInLeft href= { href } className={ className }>{ text }</InstagramInLeft>;
 
-const Email = ({ text }) =>
-  <EmailInLeftEmail>{ text }</EmailInLeftEmail>;
+const Email = ({ text, className, href }) =>
+  <EmailInLeftEmail href= { href } className={ className }>{ text }</EmailInLeftEmail>;
 
 const Title = () => (
   <Wrapper>
     <Heading text="Welcome to the new" />
     <SubHeading text="Paula Novotna Website" />
     <Content text="Works in progress for Paula Novotná, the best kitesurfers in the Czech Republic and the current number two of the 2016 Clean Ocean Project Championship Tour." />
-    <Instagram className="icon-instagram" />
-    <Email className="icon-instagram" />
+    <Instagram href="https://www.instagram.com/paulanovotna/" className="icon-instagram" />
+    <Email href="mailto:paula.novotna@gmail.com?Subject=Hello%20again" className="icon-mail2" />
   </Wrapper>
 );
 
