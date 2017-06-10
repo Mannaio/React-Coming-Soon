@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { compose, withState, withHandlers, withProps } from 'recompose';
 import clip from '../images/paulanovotna-coming-soon.mp4';
+import Title from './Title';
 import styled from 'styled-components';
 import icon from '../css/icon.css';
 import style from '../css/style.css';
@@ -45,19 +46,26 @@ const withToggle = compose(
   })
 )
 
+const VideoPaula = ({ status, muted, toggle, selector }) =>
+  <VideoClip muted={muted} autoPlay loop>
+    <source src={clip} type="video/mp4"></source>
+  </VideoClip>
+;
+
 const Status = withToggle(({ status, muted, toggle, selector }) =>
   <VideoWrapper>
     <Button onClick={ toggle }>
       <i className={ selector }></i>
     </Button>
-    <VideoClip muted={muted} autoPlay loop>
-      <source src={clip} type="video/mp4"></source>
-    </VideoClip>
+    <VideoPaula muted={muted} autoPlay loop />
   </VideoWrapper>
 );
 
 const Video = () => (
-  <Status />
+  <div>
+    <Title />
+    <Status />
+  </div>
 );
 
 export default Video;
