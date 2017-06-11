@@ -62,7 +62,6 @@ IconInLeft.defaultProps = {
 MainTitle.defaultProps = {
   duration: '1s',
   timingFunction: 'ease',
-  delay: '0.5s',
   iterationCount: '1',
   direction: 'normal',
   fillMode: 'both',
@@ -141,6 +140,7 @@ const bounceInLeftAnimation = keyframes`
 
 const MainTitleBounceIn = styled(MainTitle)`
   animation-name: ${bounceInDownAnimation};
+  animation-delay: 1s;
 `;
 
 const SubTitleBounceIn = styled(MainTitle)`
@@ -161,40 +161,14 @@ const EmailInLeftEmail = styled(IconInLeft)`
   animation-name: ${bounceInUpAnimation};
   margin-left: 10px;
 `
-const withUserData = lifecycle({
-  getInitialState() {
-    return { loading: true };
-  },
-  componentDidMount() {
-    fetchData().then((data) =>
-      this.setState({ loading: false, ...data }));
-  }
-});
 
-const Spinner = () =>
-  <div className="Spinner">
-    <div className="loader">Loading...</div>
-  </div>;
-
-const isLoading = ({ loading }) => loading;
-
-const withSpinnerWhileLoading = branch(
-  isLoading,
-  renderComponent(Spinner)
-);
-
-const enhance = compose(
-  withUserData,
-  withSpinnerWhileLoading
-);
-
-const Heading = enhance(({ heading, subheading, content }) =>
+const Heading = ({ heading, subheading, content }) =>
   <div>
     <MainTitleBounceIn>{ heading }</MainTitleBounceIn>
     <SubTitleBounceIn>{ subheading }</SubTitleBounceIn>
     <ContentBounceIn>{ content }</ContentBounceIn>
   </div>
-);
+;
 
 const Instagram = ({ text, className, href }) =>
   <InstagramInLeft href= { href } className={ className }>{ text }</InstagramInLeft>
@@ -204,15 +178,9 @@ const Email = ({ text, className, href }) =>
   <EmailInLeftEmail href= { href } className={ className }>{ text }</EmailInLeftEmail>
 ;
 
-function fetchData() {
-  return new Promise((resolve) => {
-    setTimeout(() => resolve({ heading: "Welcome to the new", subheading: "Paula Novotna Website", content: "Works in progress for Paula Novotná, the best kitesurfers in the Czech Republic and the current number two of the 2016 Clean Ocean Project Championship Tour"   }), 1500);
-  });
-}
-
 const Title = () => (
   <Wrapper>
-    <Heading />
+    <Heading heading="Welcome to the new" subheading="Paula Novotna Website" content="Works in progress for Paula Novotná, the best kitesurfers in the Czech Republic and the current number two of the 2016 Clean Ocean Project Championship Tour."/>
     <Instagram href="https://www.instagram.com/paulanovotna/" className="icon-instagram" />
     <Email href="mailto:paula.novotna@gmail.com?Subject=Hello%20again" className="icon-mail2" />
   </Wrapper>
