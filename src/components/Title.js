@@ -10,6 +10,7 @@ const Wrapper = styled.div`
   top: 15%;
   left: 6%;
   max-width: 600px;
+  zIndex: 999;
 `
 const IconInLeft = styled.a`
   animation-name: ${props => props.name};

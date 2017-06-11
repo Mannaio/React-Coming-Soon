@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { compose, withState, withHandlers, withProps } from 'recompose';
+import { compose, withState, withHandlers, withProps, lifecycle, branch, renderComponent } from 'recompose';
 import clip from '../images/paulanovotna-coming-soon.mp4';
 import Title from './Title';
 import styled from 'styled-components';
@@ -14,7 +14,6 @@ const VideoClip = styled.video`
   minHeight: 100%;
   width: auto;
   height: auto;
-  zIndex: -100;
   transform: translateX(-50%) translateY(-50%);
   opacity: 0.4;
 `
@@ -29,10 +28,46 @@ const Button = styled.button`
   right: 30px;
   top: 25px;
   position: fixed;
+  zIndex: 999;
 `
-const VideoWrapper = styled.div`
 
+const Wrapper = styled.div`
+  background: #4e4e4e;
+  height: 100vh;
 `
+
+const withUserData = lifecycle({
+  getInitialState() {
+    return { loading: true };
+  },
+  componentDidMount() {
+    fetchData().then((data) =>
+      this.setState({ loading: false, ...data }));
+  }
+});
+
+const Spinner = () =>
+  <div className="Spinner">
+    <div className="loader">Loading...</div>
+  </div>;
+
+const isLoading = ({ loading }) => loading;
+
+const withSpinnerWhileLoading = branch(
+  isLoading,
+  renderComponent(Spinner)
+);
+
+const enhance = compose(
+  withUserData,
+  withSpinnerWhileLoading
+);
+
+function fetchData() {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve({ clip:{clip} }), 1500);
+  });
+}
 
 const withToggle = compose(
   withState('muted', 'toggle', 'selector', true),
@@ -46,25 +81,27 @@ const withToggle = compose(
   })
 )
 
-const VideoPaula = ({ status, muted, toggle, selector }) =>
-  <VideoClip muted={muted} autoPlay loop>
-    <source src={clip} type="video/mp4"></source>
-  </VideoClip>
-;
+const VideoPaula = enhance(({ status, muted, toggle, background }) =>
+  <Wrapper>
+    <VideoClip muted={muted} autoPlay loop>
+      <source src={clip} type="video/mp4"></source>
+    </VideoClip>
+  </Wrapper>
+);
 
-const Status = withToggle(({ status, muted, toggle, selector }) =>
-  <VideoWrapper>
+const Status = withToggle(({ status, muted, toggle, selector, background }) =>
+  <div>
     <Button onClick={ toggle }>
       <i className={ selector }></i>
     </Button>
-    <VideoPaula muted={muted} autoPlay loop />
-  </VideoWrapper>
+    <VideoPaula muted={ muted } autoPlay loop />
+  </div>
 );
 
 const Video = () => (
   <div>
-    <Title />
     <Status />
+    <Title />
   </div>
 );
 
