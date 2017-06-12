@@ -76,7 +76,7 @@ const withToggle = compose(
   }),
   withProps(({ muted }) => {
     return {
-      selector: muted ? 'icon-volume-mute' : 'icon-volume-high',
+      selector: muted ? 'icon-volume-mute2' : 'icon-volume-high',
     };
   })
 )

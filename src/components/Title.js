@@ -3,7 +3,6 @@ import {render} from 'react-dom';
 import styled, { keyframes } from 'styled-components';
 import { compose, lifecycle, branch, renderComponent } from 'recompose';
 import icon from '../css/icon.css';
-// import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 const Wrapper = styled.div`
   position: absolute;
@@ -138,6 +137,29 @@ const bounceInLeftAnimation = keyframes`
   }
 `;
 
+const bounceInRightAnimation = keyframes`
+  from, 60%, 75%, 90%, to {
+     animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+   }
+   from {
+     opacity: 0;
+     transform: translate3d(3000px, 0, 0);
+   }
+   60% {
+     opacity: 1;
+     transform: translate3d(-25px, 0, 0);
+   }
+   75% {
+     transform: translate3d(10px, 0, 0);
+   }
+   90% {
+     transform: translate3d(-5px, 0, 0);
+   }
+   to {
+     transform: none;
+   }
+`;
+
 const MainTitleBounceIn = styled(MainTitle)`
   animation-name: ${bounceInDownAnimation};
   animation-delay: 1s;
@@ -157,8 +179,12 @@ const ContentBounceIn = styled(MainTitle)`
 const InstagramInLeft = styled(IconInLeft)`
   animation-name: ${bounceInLeftAnimation};
 `
-const EmailInLeftEmail = styled(IconInLeft)`
+const EmailInUp = styled(IconInLeft)`
   animation-name: ${bounceInUpAnimation};
+  margin-left: 10px;
+`
+const VimeoInRight = styled(IconInLeft)`
+  animation-name: ${bounceInRightAnimation};
   margin-left: 10px;
 `
 
@@ -175,7 +201,11 @@ const Instagram = ({ text, className, href }) =>
 ;
 
 const Email = ({ text, className, href }) =>
-  <EmailInLeftEmail href= { href } className={ className }>{ text }</EmailInLeftEmail>
+  <EmailInUp href= { href } className={ className }>{ text }</EmailInUp>
+;
+
+const Vimeo = ({ text, className, href }) =>
+  <VimeoInRight href= { href } className={ className }>{ text }</VimeoInRight>
 ;
 
 const Title = () => (
@@ -183,6 +213,7 @@ const Title = () => (
     <Heading heading="Welcome to the new" subheading="Paula Novotna Website" content="Works in progress for Paula Novotná, the best kitesurfers in the Czech Republic and the current number two of the 2016 Clean Ocean Project Championship Tour."/>
     <Instagram href="https://www.instagram.com/paulanovotna/" className="icon-instagram" />
     <Email href="mailto:paula.novotna@gmail.com?Subject=Hello%20again" className="icon-mail2" />
+    <Vimeo href="https://vimeo.com/paulanovotna" className="icon-vimeo" />
   </Wrapper>
 );
 

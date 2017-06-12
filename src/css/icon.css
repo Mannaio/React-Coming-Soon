@@ -25,29 +25,20 @@
 }
 
 .icon-volume-high:before,
-.icon-volume-mute:before {
+.icon-volume-mute2:before {
   content: "\ea26";
   font-size: 16px;
   color: #fff;
 }
-.icon-volume-mute:before {
+.icon-volume-mute2:before {
   content: "\ea2a";
 }
 .icon-mail2:before {
   content: "\ea84";
 }
-.icon-facebook:before {
-  content: "\ea90";
-}
-.icon-facebook2:before {
-  content: "\ea91";
-}
 .icon-instagram:before {
   content: "\ea92";
 }
-.icon-telegram:before {
-  content: "\ea95";
-}
-.icon-twitter:before {
-  content: "\ea96";
+.icon-vimeo:before {
+  content: "\eaa0";
 }
